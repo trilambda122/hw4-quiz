@@ -5,29 +5,29 @@ console.log("HOWDY!");
 var startButton = document.querySelector('#start_btn')
 var questionElement = document.querySelector("#question-text");
 var buttonArea = document.querySelector("#answer-buttons-area")
+var timeBar = document.querySelector("#timer-bar");
 
+
+// stage vars
 var questionNumber = 0;
-
+var timeLimit = 300;
 
 
 // start button listener for kicking off the quiz
-startButton = addEventListener('click', startQuiz)
-
-
-// funciton to start the quiz, will remvoe the start button from the DOM and set the first quesiton
-function startQuiz() {
+startButton.addEventListener('click', function(event) {
     event.stopPropagation();
     // remove the start button and the text-header from the DOM  when the quiz starts
-    document.querySelector('#start_btn').remove();
+    document.querySelector('#start_btn').remove()
     document.querySelector('#text-header').innerText = "";
-
     setQuestion(questionNumber);
-}
+    startTimer();
+});
 
 
 // gets the first question from the quesitons array and  then calls show answers function to place the question onthe page
+
 function setQuestion(questionNumber) {
-    event.stopPropagation();
+    // event.stopPropagation();
 
     singleQuestion = questions[questionNumber].question;
     showQuestion(singleQuestion);
@@ -39,20 +39,19 @@ function setQuestion(questionNumber) {
 
 // Expects a question oject to be passed, and will then display it on the page. 
 function showQuestion(question) {
-    event.stopPropagation();
-
+    // event.stopPropagation();
     questionElement.innerText = question;
 }
-
 // expects an answers pbject to be passed and loop through each of them creatingn and displaying a button on the page
 function showAnswers(answers) {
-    event.stopPropagation();
+    // event.stopPropagation();
     cleanupButtons();
 
+    // buttonArea.appendChild(answerButton);
     answers.forEach(function(answer) {
-
+        // event.stopPropagation();
         var answerButton = document.createElement('button');
-        console.log("the answer button is: " + answerButton)
+
         answerButton.classList.add("btn");
         answerButton.classList.add("btn-primary");
         answerButton.classList.add("mr-2");
@@ -62,42 +61,48 @@ function showAnswers(answers) {
         if (answer.correct) {
             answerButton.dataset.correct = "true";
         }
-        answerButton.addEventListener("click", checkAnswer)
-        console.log(buttonArea);
+        // answerButton.addEventListener("click", checkAnswer)
+        answerButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                checkAnswer(event);
+            }
+
+        )
         buttonArea.appendChild(answerButton);
 
+
     });
-    // no idea why this works, but without it the second set of questions will not display!
-    buttonArea.appendChild();
+    // no idea why this works, but without it the second set of questions will not display! however it causes an reference error that stops everything else
+    // buttonArea.appendChild(answerButton);
 
 };
 
 // expects a single answer object to be passed, will parse the correct parm for true or false
 function checkAnswer(answer) {
-    event.stopPropagation();
+    // event.stopPropagation();
     var buttonSelected = answer.target;
     var answerStatus = false;
     if (buttonSelected.dataset.correct === "true") {
-
         answerStatus = true;
     }
     showAnswerResult(answerStatus);
     questionNumber = questionNumber + 1;
 
     setQuestion(questionNumber);
-    cleanupButtons();
+
 }
 
 // Display the status of the selected answer to the page. 
 function showAnswerResult(answerStatus) {
-    event.stopPropagation();
+    // event.stopPropagation();
     if (answerStatus) {
-        console.log("CORREECT A MUNODO!!");
+
         document.querySelector('#text-header').innerText = "CORRECT A MUNDO";
     } else {
-        console.log("HEEYYYY!!");
-        document.querySelector('#text-header').innerText = "NO WAY";
 
+        document.querySelector('#text-header').innerText = "NO WAY";
+        // decrement the timer by 30sec. 
+        timeLimit = timeLimit - 30;
     }
 }
 
@@ -108,7 +113,32 @@ function cleanupButtons() {
 }
 
 
+// Start the timer
+function startTimer() {
+    var startingTime = timeLimit;
+    setInterval(function() {
+        timeLimit = timeLimit - 1;
+        console.log(timeLimit);
+        timeBar.innerText = timeLimit;
+        percent = (timeLimit / startingTime) * 100;
+        percent = Math.floor(percent);
+        percent = (percent + "%");
+        console.log("percent is:" + percent);
+        timeBar.style.width = percent;
 
+    }, 1000);
+}
+
+// function updateTimerBar(time) {
+//     var startingTime = timeLimit;
+//     timeBar.innerText = time;
+//     percent = (time / startingTime) * 100;
+//     percent = Math.floor(percent);
+//     percent = (percent + "%");
+//     console.log("percent is:" + percent);
+//     timeBar.style.width = percent;
+
+// }
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",
