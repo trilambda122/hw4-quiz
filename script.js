@@ -5,8 +5,8 @@ console.log("HOWDY!");
 var startButton = document.querySelector('#start_btn')
 var questionElement = document.querySelector("#question-text");
 var buttonArea = document.querySelector("#answer-buttons-area")
-console.log(questionElement);
 
+var questionNumber = 0;
 
 
 
@@ -19,54 +19,96 @@ function startQuiz() {
     event.stopPropagation();
     // remove the start button and the text-header from the DOM  when the quiz starts
     document.querySelector('#start_btn').remove();
-    document.querySelector('#text-header').remove();
+    document.querySelector('#text-header').innerText = "";
 
-    setQuestion();
+    setQuestion(questionNumber);
 }
 
 
 // gets the first question from the quesitons array and  then calls show answers function to place the question onthe page
-function setQuestion() {
+function setQuestion(questionNumber) {
     event.stopPropagation();
-    console.log(questions[0].question);
-    singleQuestion = questions[0].question;
+
+    singleQuestion = questions[questionNumber].question;
     showQuestion(singleQuestion);
-    answers = questions[1].answers
+    answers = questions[questionNumber].answers
     showAnswers(answers);
+
 }
 
 
 // Expects a question oject to be passed, and will then display it on the page. 
 function showQuestion(question) {
     event.stopPropagation();
-    console.log("showing the question!");
-    console.log(questionElement);
+
     questionElement.innerText = question;
 }
 
 // expects an answers pbject to be passed and loop through each of them creatingn and displaying a button on the page
 function showAnswers(answers) {
     event.stopPropagation();
-    console.log(answers)
+    cleanupButtons();
 
     answers.forEach(function(answer) {
+
         var answerButton = document.createElement('button');
+        console.log("the answer button is: " + answerButton)
         answerButton.classList.add("btn");
         answerButton.classList.add("btn-primary");
         answerButton.classList.add("mr-2");
         answerButton.innerText = answer.possibleAnswer;
+
+        // mark the button as correct in its data-set attribute if correct=true on the answer object
+        if (answer.correct) {
+            answerButton.dataset.correct = "true";
+        }
         answerButton.addEventListener("click", checkAnswer)
+        console.log(buttonArea);
         buttonArea.appendChild(answerButton);
+
     });
+    // no idea why this works, but without it the second set of questions will not display!
+    buttonArea.appendChild();
 
 };
 
 // expects a single answer object to be passed, will parse the correct parm for true or false
 function checkAnswer(answer) {
     event.stopPropagation();
-    console.log('Checking the answer');
+    var buttonSelected = answer.target;
+    var answerStatus = false;
+    if (buttonSelected.dataset.correct === "true") {
 
+        answerStatus = true;
+    }
+    showAnswerResult(answerStatus);
+    questionNumber = questionNumber + 1;
+
+    setQuestion(questionNumber);
+    cleanupButtons();
 }
+
+// Display the status of the selected answer to the page. 
+function showAnswerResult(answerStatus) {
+    event.stopPropagation();
+    if (answerStatus) {
+        console.log("CORREECT A MUNODO!!");
+        document.querySelector('#text-header').innerText = "CORRECT A MUNDO";
+    } else {
+        console.log("HEEYYYY!!");
+        document.querySelector('#text-header').innerText = "NO WAY";
+
+    }
+}
+
+function cleanupButtons() {
+    while (buttonArea.firstChild) {
+        buttonArea.removeChild(buttonArea.firstChild)
+    }
+}
+
+
+
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",
@@ -82,7 +124,7 @@ var questions = [{
         answers: [
             { possibleAnswer: "commas", correct: false },
             { possibleAnswer: "curly braces", correct: false },
-            { possibleAnswer: "qoutes", correct: true },
+            { possibleAnswer: "quotes", correct: true },
             { possibleAnswer: "parenthesis", correct: false }
         ]
     },
@@ -101,7 +143,37 @@ var questions = [{
             { possibleAnswer: "strings", correct: false },
             { possibleAnswer: "Boolean", correct: false },
             { possibleAnswer: "alerts", correct: true },
-            { possibleAnswer: "numbers", correct: true }
+            { possibleAnswer: "numbers", correct: false }
+        ]
+    },
+
+    {
+        question: "Inside which HTML element do we put the JavaScript?",
+        answers: [
+            { possibleAnswer: "<script>", correct: true },
+            { possibleAnswer: "<scripting>", correct: false },
+            { possibleAnswer: "<js>", correct: false },
+            { possibleAnswer: "<javascript>", correct: false }
+        ]
+    },
+
+    {
+        question: "What is the correct syntax for referring to an external script called \"xxx.js\"?",
+        answers: [
+            { possibleAnswer: "<script scr=\"xxx.js\">", correct: true },
+            { possibleAnswer: "<script name=\"xxx.js\>", correct: false },
+            { possibleAnswer: "<script href=\"xxx.js\>", correct: false },
+            { possibleAnswer: "<script loc=\"xxx.js\>", correct: false }
+        ]
+    },
+
+    {
+        question: "How can you add a comment in a JavaScript?",
+        answers: [
+            { possibleAnswer: "// This is a comment", correct: true },
+            { possibleAnswer: "[this is a comment]", correct: false },
+            { possibleAnswer: "*this is a comment", correct: false },
+            { possibleAnswer: "-- this is a comment", correct: false }
         ]
     }
 ]

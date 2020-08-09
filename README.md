@@ -3,6 +3,13 @@
 Create a multible choice quiz application, that has countdown timer, ans score keeping 
 Time will be deducted for incorrect answers, added for correct answers. Score will be incremented by 1 for each correct answer. 
 
+---
+BUGS:
+- [ ] issue you can click anywhere in the jumbo tron to start the quiz. you dont have to click the start button
+- [X] next quesiton displays, but without any answer buttons showing
+
+
+
 
 TODO:
 - [ ] UI
@@ -34,4 +41,4 @@ TODO:
   - [ ] Quiz End
     - [ ] Create function add name input score total to the window
     - [ ] Create function to save name and score to local storage 
-  - [ ] 
+  
