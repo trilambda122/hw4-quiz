@@ -3,6 +3,7 @@
 Create a multible choice quiz application, that has countdown timer, ans score keeping 
 Time will be deducted for incorrect answers, added for correct answers. Score will be incremented by 1 for each correct answer. 
 
+SITE can be accessed here: ![QUIZ](https://trilambda122.github.io/hw4-quiz/)
 ---
 BUGS:
 - [X] issue you can click anywhere in the jumbo tron to start the quiz. you dont have to click the start button
