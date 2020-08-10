@@ -17,21 +17,24 @@
         </a>
         <a class="navbar-brand" href="index.html" id="name">CODER QUIZ</a>
 
-        <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <a class="navbar-brand" href="index.html" id="nav-score">SCORE: </a>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="nav-name"><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="nav-score"></a>
+                </li>
+            </ul>
 
     </nav>
+
+
     <div class="row m-2">
 
         <!-- ADD PLAYER CARD-->
 
-        <div class="card col-md-3 w-10 mr-2 shadow" style="width: 18rem;">
+        <div class="card  w-10 mr-2 shadow" style="width: 18rem;">
             <img src="the_fonz.jpg" class="card-img-top border border-dark" id="card-image" alt="...">
             <div class="card-body mr-2">
 
@@ -46,7 +49,8 @@
             </div>
         </div>
 
-        <div id="quiz-area " class="jumbotron ">
+        <div id="quiz-area " class="jumbotron">
+
             <h3 class="display-4" id="text-header">QUIZ CHALLEGE</h3>
             <div class="container">
                 <p class="lead" id="instructions">Enter your name and press start to answer 7 questions within the given time of 3 mintues. Time bar will countdown once the quiz begins. You will lose 30 seconds off each incorrect answer</p>
@@ -58,7 +62,7 @@
 
 
 
-            <h3 id="message-board">Answer the following questions within the time limit</h3>
+            <h5 id="message-board">Answer the following questions within the time limit</h5>
             <hr class="my-4 ">
             <!-- PROGRESS BAR -->
             <div class="container" id="time-container">
@@ -75,7 +79,7 @@
 
             <!-- TITLE -->
             <div class="container m-4">
-                <p id="question-text"></p>
+                <h3 id="question-text"></h3>
                 <div class="btn-group" role="group" aria-label="answer choices" id="answer-buttons-area"></div>
             </div>
 

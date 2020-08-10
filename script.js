@@ -3,6 +3,7 @@ console.log("HOWDY!");
 
 // VAR declorations for page objects
 var textHeaderElement = document.querySelector('#text-header');
+var navbarNameElement = document.querySelector('#nav-name')
 var startButtonElement = document.querySelector('#start_btn');
 var questionElement = document.querySelector("#question-text");
 var buttonAreaElement = document.querySelector("#answer-buttons-area");
@@ -34,14 +35,16 @@ startButtonElement.addEventListener('click', function(event) {
     // remove the start button and the text-header from the DOM  when the quiz starts
     localStorage.clear();
     playerName = nameInputElement.value;
+    playerName = playerName.toUpperCase();
     checkName(playerName);
 
     localStorage.setItem("PLAYER NAME", playerName);
     localStorage.setItem("SCORE", score);
 
     document.querySelector('#start_btn').remove()
-        // document.querySelector('#text-header').innerText = "";
-        // document.querySelector('#text-header').remove();
+    nameInputElement.remove();
+    // document.querySelector('#text-header').innerText = "";
+    // document.querySelector('#text-header').remove();
     setScore(score);
     setQuestion(questionNumber);
     startTimer();
@@ -187,6 +190,7 @@ function checkName(name) {
         alert("please enter a name!");
         location.reload();
     }
+    navbarNameElement.innerText = playerName;
 }
 
 function checkEndOfQuestions(number) {
@@ -212,7 +216,7 @@ function endQuiz() {
     localStorage.setItem('SCORE', score)
     textHeaderElement.innerText = "GAME OVER";
     instructionsElement.innerText = "Refresh the page to try again";
-    messageBaordElement.innerText = playerName + " Your Score was: " + score;
+    messageBaordElement.innerText = playerName + "!" + " Your Score was: " + score;
     questionElement.innerText = "";
 
 
