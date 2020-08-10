@@ -2,23 +2,39 @@
 console.log("HOWDY!");
 
 // VAR declorations for page objects
-var startButton = document.querySelector('#start_btn')
+var startButtonElement = document.querySelector('#start_btn');
 var questionElement = document.querySelector("#question-text");
-var buttonArea = document.querySelector("#answer-buttons-area")
+var buttonAreaElement = document.querySelector("#answer-buttons-area");
 var timeBar = document.querySelector("#timer-bar");
+var scoreEmelent = document.querySelector("#nav-score");
+var playerNameElement = document.querySelector('#player-name');
+var cardTextElement = document.querySelector('#card-text');
+var nameButtonElement = document.querySelector('#name-button');
+var nameInputElement = document.querySelector('#name-input');
+var nameInputGroupElement = document.querySelector('name-input-group');
 
-
-// stage vars
+// staged vars at the start 
 var questionNumber = 0;
 var timeLimit = 300;
+var score = 0;
+var playerName = "";
+
+
+
 
 
 // start button listener for kicking off the quiz
-startButton.addEventListener('click', function(event) {
+startButtonElement.addEventListener('click', function(event) {
     event.stopPropagation();
     // remove the start button and the text-header from the DOM  when the quiz starts
+    localStorage.clear();
+    playerName = nameInputElement.value;
+    localStorage.setItem("PLAYER NAME", playerName);
+    localStorage.setItem("SCORE", score);
+
     document.querySelector('#start_btn').remove()
     document.querySelector('#text-header').innerText = "";
+    setScore(score);
     setQuestion(questionNumber);
     startTimer();
 });
@@ -47,7 +63,7 @@ function showAnswers(answers) {
     // event.stopPropagation();
     cleanupButtons();
 
-    // buttonArea.appendChild(answerButton);
+    // buttonAreaElement.appendChild(answerButton);
     answers.forEach(function(answer) {
         // event.stopPropagation();
         var answerButton = document.createElement('button');
@@ -68,12 +84,12 @@ function showAnswers(answers) {
             }
 
         )
-        buttonArea.appendChild(answerButton);
+        buttonAreaElement.appendChild(answerButton);
 
 
     });
     // no idea why this works, but without it the second set of questions will not display! however it causes an reference error that stops everything else
-    // buttonArea.appendChild(answerButton);
+    // buttonAreaElement.appendChild(answerButton);
 
 };
 
@@ -96,7 +112,8 @@ function checkAnswer(answer) {
 function showAnswerResult(answerStatus) {
     // event.stopPropagation();
     if (answerStatus) {
-
+        score = score + 1;
+        setScore(score);
         document.querySelector('#text-header').innerText = "CORRECT A MUNDO";
     } else {
 
@@ -106,9 +123,10 @@ function showAnswerResult(answerStatus) {
     }
 }
 
+// this function is used to remove the answer buttons before displaying new ones
 function cleanupButtons() {
-    while (buttonArea.firstChild) {
-        buttonArea.removeChild(buttonArea.firstChild)
+    while (buttonAreaElement.firstChild) {
+        buttonAreaElement.removeChild(buttonAreaElement.firstChild)
     }
 }
 
@@ -116,29 +134,46 @@ function cleanupButtons() {
 // Start the timer
 function startTimer() {
     var startingTime = timeLimit;
-    setInterval(function() {
+    var countdownInterval = setInterval(function() {
         timeLimit = timeLimit - 1;
-        console.log(timeLimit);
-        timeBar.innerText = timeLimit;
-        percent = (timeLimit / startingTime) * 100;
-        percent = Math.floor(percent);
-        percent = (percent + "%");
-        console.log("percent is:" + percent);
-        timeBar.style.width = percent;
+        setTimebar(timeLimit, startingTime);
+        checkTime(timeLimit, countdownInterval);
 
     }, 1000);
+
 }
 
-// function updateTimerBar(time) {
-//     var startingTime = timeLimit;
-//     timeBar.innerText = time;
-//     percent = (time / startingTime) * 100;
-//     percent = Math.floor(percent);
-//     percent = (percent + "%");
-//     console.log("percent is:" + percent);
-//     timeBar.style.width = percent;
+// this funciton updates the display for the progressbar/timebar
+function setTimebar(time, start) {
 
-// }
+    var percent = (time / start) * 100;
+    percent = Math.floor(percent);
+    percent = (percent + "%");
+    timeBar.style.width = percent;
+    timeBar.innerText = percent;
+
+}
+
+// function checks to see if time has ran out
+function checkTime(time, interval) {
+    console.log("In the check time function");
+    if (time < 0) {
+        console.log("ran out of time!")
+        clearInterval(interval);
+        endQuiz();
+        cleanupButtons();
+
+    }
+
+}
+
+// function updates the score displayed on the page
+function setScore(s) {
+    s = score;
+    scoreEmelent.innerText = "SCORE: " + s;
+}
+
+
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",

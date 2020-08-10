@@ -13,37 +13,62 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="nav_bar">
         <a href="index.html" class="navbar-brand">
-            <img src="https://via.placeholder.com/728x90.png?" height="28" alt="SCS Logo">
+            <img src="banner.jpg" height="30" alt="banner" class="border border-white">
         </a>
         <a class="navbar-brand" href="index.html" id="name">CODER QUIZ</a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
+        <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <a class="navbar-brand" href="index.html" id="nav-score">SCORE: </a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
 
             </div>
 
     </nav>
+    <div class="row">
 
-    <div id="quiz-area " class="jumbotron ">
+        <!-- ADD PLAYER CARD-->
 
-        <div><button type="button" class="btn btn-primary m-2 " data-ans-num="1" id="start_btn">START the QUIZ</button></div>
-        <hr class="my-4 ">
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="timer-bar">
+        <div class="card col-md-3 w-10 mr-2 shadow" style="width: 18rem;">
+            <img src="the_fonz.jpg" class="card-img-top border border-dark" alt="...">
+            <div class="card-body mr-2">
+
+                <!-- enter name input -->
+                <div class="input-group mb-3" id="name-input-group">
+                    <input type="text" class="form-control" placeholder="NAME" aria-label="Recipient's username" aria-describedby="button-addon2" id="name-input">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="start_btn">START</button>
+                    </div>
+                </div>
+                <p class="card-text" id="card-text"></p>
             </div>
         </div>
 
+        <div id="quiz-area " class="jumbotron ">
+            <h1 class="display-4" id="text-header">QUIZ CHALLEGE</h1>
+            <P class="lead "></P>
+            <hr class="my-4 ">
 
-        <h1 class="display-4" id="text-header">QUIZ CHALLEGE</h1>
-        <P class="lead "></P>
-        <hr class="my-4 ">
-        <h3>Answer the following questions within the time limit</h3>
-        <p id="question-text"></p>
-        <div class="btn-group" role="group" aria-label="answer choices" id="answer-buttons-area">
 
+
+
+            <h3>Answer the following questions within the time limit</h3>
+            <hr class="my-4 ">
+            <!-- PROGRESS BAR -->
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="timer-bar">
+                </div>
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <p id="question-text"></p>
+            <div class="btn-group" role="group" aria-label="answer choices" id="answer-buttons-area"></div>
         </div>
 
 
