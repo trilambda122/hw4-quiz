@@ -2,6 +2,7 @@
 console.log("HOWDY!");
 
 // VAR declorations for page objects
+var textHeaderElement = document.querySelector('#text-header');
 var startButtonElement = document.querySelector('#start_btn');
 var questionElement = document.querySelector("#question-text");
 var buttonAreaElement = document.querySelector("#answer-buttons-area");
@@ -12,28 +13,35 @@ var cardTextElement = document.querySelector('#card-text');
 var nameButtonElement = document.querySelector('#name-button');
 var nameInputElement = document.querySelector('#name-input');
 var nameInputGroupElement = document.querySelector('name-input-group');
+var instructionsElement = document.querySelector('#instructions');
+var messageBaordElement = document.querySelector('#message-board');
+var cardImageElement = document.querySelector('#card-image');
 
 // staged vars at the start 
 var questionNumber = 0;
-var timeLimit = 300;
+var timeLimit = 180;
 var score = 0;
 var playerName = "";
-
-
-
+var countdownInterval;
 
 
 // start button listener for kicking off the quiz
 startButtonElement.addEventListener('click', function(event) {
     event.stopPropagation();
+
+    var numberOfQuestions = questions.length;
+    console.log("the number of questions is: " + numberOfQuestions);
     // remove the start button and the text-header from the DOM  when the quiz starts
     localStorage.clear();
     playerName = nameInputElement.value;
+    checkName(playerName);
+
     localStorage.setItem("PLAYER NAME", playerName);
     localStorage.setItem("SCORE", score);
 
     document.querySelector('#start_btn').remove()
-    document.querySelector('#text-header').innerText = "";
+        // document.querySelector('#text-header').innerText = "";
+        // document.querySelector('#text-header').remove();
     setScore(score);
     setQuestion(questionNumber);
     startTimer();
@@ -44,7 +52,7 @@ startButtonElement.addEventListener('click', function(event) {
 
 function setQuestion(questionNumber) {
     // event.stopPropagation();
-
+    checkEndOfQuestions(questionNumber);
     singleQuestion = questions[questionNumber].question;
     showQuestion(singleQuestion);
     answers = questions[questionNumber].answers
@@ -134,7 +142,7 @@ function cleanupButtons() {
 // Start the timer
 function startTimer() {
     var startingTime = timeLimit;
-    var countdownInterval = setInterval(function() {
+    countdownInterval = setInterval(function() {
         timeLimit = timeLimit - 1;
         setTimebar(timeLimit, startingTime);
         checkTime(timeLimit, countdownInterval);
@@ -173,7 +181,42 @@ function setScore(s) {
     scoreEmelent.innerText = "SCORE: " + s;
 }
 
+function checkName(name) {
+    console.log("player name is currently: " + name);
+    if (name === "") {
+        alert("please enter a name!");
+        location.reload();
+    }
+}
 
+function checkEndOfQuestions(number) {
+
+    if (number === questions.length) {
+        // how to end the game?
+        console.log("thats the last question:");
+
+        endQuiz();
+
+    }
+
+}
+
+function endQuiz() {
+    //remove the answer buttons
+    cleanupButtons();
+    // Stop the timer
+    clearInterval(countdownInterval);
+    // document.querySelector(bar).remove()
+    // save the score to local storage
+    cardImageElement.src = 'Fonzie.jpg';
+    localStorage.setItem('SCORE', score)
+    textHeaderElement.innerText = "GAME OVER";
+    instructionsElement.innerText = "Refresh the page to try again";
+    messageBaordElement.innerText = playerName + " Your Score was: " + score;
+    questionElement.innerText = "";
+
+
+}
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",
