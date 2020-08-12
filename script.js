@@ -24,7 +24,8 @@ var timeLimit = 180;
 var score = 0;
 var playerName = "";
 var countdownInterval;
-
+//get any previous scores scores and store to array
+var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
 // start button listener for kicking off the quiz
 startButtonElement.addEventListener('click', function(event) {
@@ -33,13 +34,13 @@ startButtonElement.addEventListener('click', function(event) {
     var numberOfQuestions = questions.length;
     console.log("the number of questions is: " + numberOfQuestions);
     // remove the start button and the text-header from the DOM  when the quiz starts
-    localStorage.clear();
+    // localStorage.clear();
     playerName = nameInputElement.value;
     playerName = playerName.toUpperCase();
     checkName(playerName);
 
-    localStorage.setItem("PLAYER NAME", playerName);
-    localStorage.setItem("SCORE", score);
+    // localStorage.setItem("PLAYER NAME", playerName);
+    // localStorage.setItem("SCORE", score);
 
     document.querySelector('#start_btn').remove()
     nameInputElement.remove();
@@ -210,17 +211,44 @@ function endQuiz() {
     cleanupButtons();
     // Stop the timer
     clearInterval(countdownInterval);
-    // document.querySelector(bar).remove()
+    timeStamp = timeStamp();
     // save the score to local storage
+
     cardImageElement.src = 'Fonzie.jpg';
-    localStorage.setItem('SCORE', score)
+    localStorage.setItem(timeStamp, playerName + "," + score);
     textHeaderElement.innerText = "GAME OVER";
     instructionsElement.innerText = "Refresh the page to try again";
-    messageBaordElement.innerText = playerName + "!" + " Your Score was: " + score;
+    messageBaordElement.innerText = playerName + "!" + " Your Score was: " + score + " AT: " + timeStamp;
     questionElement.innerText = "";
+    setFinalScore(score);
+}
 
+function timeStamp() {
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    return dateTime;
+    console.log(dateTime);
 
 }
+// set the final score and save it to local storage
+function setFinalScore(s) {
+    var finalScore = {
+        score: s,
+        name: playerName
+    };
+    highScores.push(finalScore);
+
+    highScores.sort(function(a, b) {
+        return b.score - a.score;
+
+    })
+    highScores.splice(10);
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+
+}
+
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",
