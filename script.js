@@ -213,7 +213,7 @@ function endQuiz() {
     // save the score to local storage
 
     cardImageElement.src = 'Fonzie.jpg';
-    localStorage.setItem(timeStamp, playerName + "," + score);
+    // localStorage.setItem(timeStamp, playerName + "," + score);
     textHeaderElement.innerText = "GAME OVER";
     instructionsElement.innerText = "Refresh the page to try again";
 
