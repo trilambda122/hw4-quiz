@@ -29,63 +29,64 @@
 
     </nav>
 
+    <div class="container">
+        <div class="row m-2">
 
-    <div class="row m-2">
+            <!-- ADD PLAYER CARD-->
 
-        <!-- ADD PLAYER CARD-->
+            <div class="card  col-md-3 mr-2 shadow">
+                <img src="the_fonz.jpg" class="card-img-top border border-dark" id="card-image" alt="...">
+                <div class="card-body mr-2">
 
-        <div class="card  w-10 mr-2 shadow" style="width: 18rem;">
-            <img src="the_fonz.jpg" class="card-img-top border border-dark" id="card-image" alt="...">
-            <div class="card-body mr-2">
+                    <!-- enter name input -->
+                    <div class="input-group mb-3" id="name-input-group">
+                        <input type="text" class="form-control" placeholder="NAME" aria-label="Recipient's username" aria-describedby="button-addon2" id="name-input">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button" id="start_btn">START</button>
+                        </div>
+                    </div>
+                    <p class="card-text" id="card-text"></p>
+                </div>
 
-                <!-- enter name input -->
-                <div class="input-group mb-3" id="name-input-group">
-                    <input type="text" class="form-control" placeholder="NAME" aria-label="Recipient's username" aria-describedby="button-addon2" id="name-input">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button" id="start_btn">START</button>
+
+
+                <!-- JUMBO -->
+            </div>
+            <div id="quiz-area " class="jumbotron col-md-8">
+
+                <h3 class="display-4" id="text-header">QUIZ CHALLEGE</h3>
+                <div class="container">
+                    <p class="lead" id="instructions">Enter your name and press start to answer 7 questions within the given time of 3 mintues. Time bar will countdown once the quiz begins. You will lose 30 seconds off each incorrect answer</p>
+                </div>
+
+                <P class="lead "></P>
+                <hr class="my-4 ">
+                <div id="message-board">
+                    <h5 id="message">Answer the following questions within the time limit</h5>
+                    <table class="table table-bordered table-sm" id="high-score-table"></table>
+                </div>
+
+                <hr class="my-4 ">
+                <!-- PROGRESS BAR -->
+                <div class="container" id="time-container">
+                    <H4>TIME LEFT:</H4>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="timer-bar">
+                        </div>
                     </div>
                 </div>
-                <p class="card-text" id="card-text"></p>
-            </div>
-        </div>
-
-        <div id="quiz-area " class="jumbotron">
-
-            <h3 class="display-4" id="text-header">QUIZ CHALLEGE</h3>
-            <div class="container">
-                <p class="lead" id="instructions">Enter your name and press start to answer 7 questions within the given time of 3 mintues. Time bar will countdown once the quiz begins. You will lose 30 seconds off each incorrect answer</p>
-            </div>
-
-            <P class="lead "></P>
-            <hr class="my-4 ">
 
 
 
 
-            <h5 id="message-board">Answer the following questions within the time limit</h5>
-            <hr class="my-4 ">
-            <!-- PROGRESS BAR -->
-            <div class="container" id="time-container">
-                <H4>TIME LEFT:</H4>
-                <div class="progress">
-
-                    <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="timer-bar">
-                    </div>
+                <!-- Button -->
+                <div class="row m-4">
+                    <h3 id="question-text"></h3>
+                    <div class="btn-group col-md-10" role="group" aria-label="answer choices" id="answer-buttons-area"></div>
                 </div>
             </div>
-
-
-
-
-            <!-- TITLE -->
-            <div class="container m-4">
-                <h3 id="question-text"></h3>
-                <div class="btn-group" role="group" aria-label="answer choices" id="answer-buttons-area"></div>
-            </div>
-
         </div>
-
-
 
 </body>
 <script src="script.js"></script>

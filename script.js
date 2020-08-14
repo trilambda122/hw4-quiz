@@ -15,7 +15,9 @@ var nameButtonElement = document.querySelector('#name-button');
 var nameInputElement = document.querySelector('#name-input');
 var nameInputGroupElement = document.querySelector('name-input-group');
 var instructionsElement = document.querySelector('#instructions');
-var messageBaordElement = document.querySelector('#message-board');
+var messageBoardElement = document.querySelector('#message-board');
+var messageElement = document.querySelector('#message');
+var highScoreTable = document.querySelector('#high-score-table');
 var cardImageElement = document.querySelector('#card-image');
 
 // staged vars at the start 
@@ -81,6 +83,7 @@ function showAnswers(answers) {
         answerButton.classList.add("btn");
         answerButton.classList.add("btn-primary");
         answerButton.classList.add("mr-2");
+        // answerButton.classList.add("col-md-2");
         answerButton.innerText = answer.possibleAnswer;
 
         // mark the button as correct in its data-set attribute if correct=true on the answer object
@@ -217,7 +220,7 @@ function endQuiz() {
     textHeaderElement.innerText = "GAME OVER";
     instructionsElement.innerText = "Refresh the page to try again";
 
-    messageBaordElement.innerText = playerName + "!" + " Your Score was: " + score + " AT: " + timeStamp;
+    // messageBoardElement.innerText = playerName + "!" + " Your Score was: " + score + " AT: " + timeStamp;
 
     questionElement.innerText = "";
     setFinalScore(score);
@@ -257,15 +260,55 @@ function setFinalScore(s) {
 
 //  still wokring through this. 
 function displayHighScores() {
+    messageElement.remove();
     var highScoreList = JSON.parse(localStorage.getItem('highScores'));
-    highScoreList = JSON.stringify(highScoreList);
-    highScoreList = highScoreList.split(",");
-    console.log(highScoreList[1]);
-    console.log(highScoreList.length);
-    console.log(typeof(highScoreList));
 
+    // CREATE A TABLE header and header row
+    tHead = highScoreTable.createTHead();
+    headerRow = tHead.insertRow();
+
+    // add colmn names
+    scoreTH = document.createElement('th');
+    scoreLabel = document.createTextNode('SCORE');
+    scoreTH.appendChild(scoreLabel);
+    headerRow.appendChild(scoreTH);
+
+    nameTH = document.createElement('th');
+    nameLabel = document.createTextNode('NAME');
+    nameTH.appendChild(nameLabel);
+    headerRow.appendChild(nameTH);
+    // append it all to the high score element 
+
+
+
+    // loop through the arraay from local storage and build the table elements
+    var name;
+    var score;
+
+    highScoreList.forEach(function(item) {
+        name = item.name
+        score = item.score
+
+        row = tHead.insertRow();
+
+        scoreTH = document.createElement('th');
+        scoreLabel = document.createTextNode(score);
+        scoreTH.appendChild(scoreLabel);
+        row.appendChild(scoreTH);
+
+        nameTH = document.createElement('th');
+        nameLabel = document.createTextNode(name);
+        nameTH.appendChild(nameLabel);
+        row.appendChild(nameTH);
+
+
+
+    })
+    highScoreTable.appendChild(tHead);
 
 }
+
+
 // array of objects containing questions, possible answers, and true or false values. 
 var questions = [{
         question: "The condition in an if /else statement is enclosed with _____?",
