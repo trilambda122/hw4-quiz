@@ -19,6 +19,8 @@ var messageBoardElement = document.querySelector('#message-board');
 var messageElement = document.querySelector('#message');
 var highScoreTable = document.querySelector('#high-score-table');
 var cardImageElement = document.querySelector('#card-image');
+var cardHeaderElement = document.querySelector('#card-header');
+var cardFooterElement = document.querySelector('#card-footer');
 
 // staged vars at the start 
 var questionNumber = 0;
@@ -33,7 +35,7 @@ var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 // start button listener for kicking off the quiz
 startButtonElement.addEventListener('click', function(event) {
     event.stopPropagation();
-
+    instructionsElement.innerText = "";
     var numberOfQuestions = questions.length;
     console.log("the number of questions is: " + numberOfQuestions);
 
@@ -82,7 +84,7 @@ function showAnswers(answers) {
 
         answerButton.classList.add("btn");
         answerButton.classList.add("btn-primary");
-        answerButton.classList.add("mr-2");
+        answerButton.classList.add("m-2");
         // answerButton.classList.add("col-md-2");
         answerButton.innerText = answer.possibleAnswer;
 
@@ -181,6 +183,7 @@ function checkTime(time, interval) {
 function setScore(s) {
     s = score;
     scoreEmelent.innerText = "SCORE: " + s;
+
 }
 
 // function checks to see if player has entered a name
@@ -191,6 +194,7 @@ function checkName(name) {
         location.reload();
     }
     navbarNameElement.innerText = playerName;
+    cardHeaderElement.innerText = playerName;
 }
 
 // function checks to see if the last question had been reached, if so it will end the game
@@ -240,6 +244,7 @@ function timeStamp() {
 // set the final score and save it to local storage
 function setFinalScore(s) {
     // create finalScore object? 
+    cardFooterElement.innerText = "FINAL SCORE: " + s;
     var finalScore = {
         score: s,
         name: playerName
