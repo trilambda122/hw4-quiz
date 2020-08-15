@@ -12,7 +12,7 @@ CURRENT KNOW BUGS:
 
 
 TODO:
-- [ ] UI
+- [X] UI
   - [X] Create Shell HTML
     - [X] Container for questions
     - [X] Container for Answer buttons
@@ -25,7 +25,7 @@ TODO:
   - [X] create player card 
     - [X] create name field
     - Display highscores at the end of the quiz
-  [ ] Logic
+  [X] Logic
   - [X] Quesitons
     - [X] Create Question/answer array or Object to hold question, possible answers and correct answer flag
   - [X] Create Timer countdown logic
@@ -39,5 +39,5 @@ TODO:
     - [X] add listeners to answer buttons for the click events
     - [X] create logix that measures if the answers are correct or incorrect  
   - [ ] Quiz End
-    - [ ] Display highscores at end of game 
+    - [X] Display highscores at end of game 
   
