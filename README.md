@@ -1,15 +1,18 @@
 # hw4-quiz
 
+
+
+SITE can be accessed here: [QUIZ](https://trilambda122.github.io/hw4-quiz/). Created with straight javascript
+
 Create a multible choice quiz application, that has countdown timer, and score keeping 
 Time will be deducted for incorrect answers, added for correct answers. Score will be incremented by 1 for each correct answer. Top 10 high scores to be displayed at the end.  
 
-SITE can be accessed here: [QUIZ](https://trilambda122.github.io/hw4-quiz/)
+![QUIZ app](Quiz-App.png)
+![QUIZ app](quiz_app_gameover.png)
+
+>shane@sschilling.com
 ---
 CURRENT KNOW BUGS:
-
-
-
-
 
 TODO:
 - [X] UI
